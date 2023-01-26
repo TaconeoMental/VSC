@@ -1,0 +1,242 @@
+# VWSTG (Vim Web Security Testing Guide)
+# Basado en OWASP WSTG v4.2 + constantes adiciones personales
+
+[ ] Recolección de Información {
+    [ ] Descubrimiento en motores de búsqueda {
+        [ ] https://google.com
+        [ ] https://bing.com
+        [ ] https://duckduckgo.com
+        [ ] https://commoncrawl.org
+        [ ] https://www.shodan.io
+        [ ] https://leakix.net
+        [ ] https://archive.org
+        [ ] https://crt.sh
+        [ ] https://en.fofa.info
+        [ ] https://subdomainfinder.c99.nl
+    }
+
+    [ ] Identificación del servidor web {
+        [ ] Banner grabbing
+        [ ] Forzar mensajes de error {
+            # Rutas inexistentes bla bla bla TODO
+            [ ] TODO
+        }
+        [ ] $ nmap
+        [ ] $ Wappalyzer
+        [ ] $ whatweb
+    }
+
+    [ ] Análisis de los metatags y metadata {
+        [ ] robots.txt
+        [ ] sitemap.xml
+        [ ] META Tags
+        [ ] TODO?
+    }
+
+    [ ] Enumerar aplicaciones dentro del servidor web {
+        [ ] $ nmap
+        [ ] Banner grabbing: el retorno
+    }
+
+    [ ] Análisis del contenido y código de fuente del sitio web {
+        [ ] Archivos HTML {
+            [ ] Comentarios
+            [ ] Funcionalidad escondida {
+                [ ] Atributo "hidden"
+                [ ] "display: none"
+            }
+        }
+
+        [ ] Archivos JS {
+            [ ] Comentarios
+            [ ] Endpoints nuevos
+            [ ] Exposición de llaves, contraseñas, etc.
+            [ ] Webpack? {
+                [ ] https://github.com/TaconeoMental/Felina # Análisis estático
+                [ ] Source maps # Manual por si acaso
+            }
+        }
+    }
+
+    [ ] Identificar vectores de ataque y puntos de inyección {
+        [ ] Verbos utilizados
+        [ ] Respuetas con redirecciones
+        [ ] Respuestas 400, 403, 500, etc. en peticiones no modificadas
+        [ ] Parámetros en cuerpo de peticiones POST
+        [ ] Parámetros en URL de peticiones GET
+        [ ] Headers no comunes
+    }
+
+    [ ] Mapear flujos funcionales de la aplicación {
+        [ ] TODO
+    }
+
+    [ ] Identificación del Framework de la aplicación web {
+        [ ] Headers HTTP
+        [ ] Cookies
+        [ ] Código fuente
+        [ ] Mensajes de error
+        [ ] Extensiones de archivos
+        [ ] $ Wappalyzer
+        [ ] $ whatweb
+    }
+}
+
+
+[ ] Pruebas de Configuración y Gestión de Despliegue {
+    [ ] Probar configuración de red/infraestructura {
+        [ ] TODO
+    }
+
+    [ ] Probar configuración de plataforma de aplicaciones {
+        [ ] Blackbox {
+            [ ] TODO
+        }
+
+        [ ] Greybox {
+            [ ] TODO - Referencias distintas tecnologías
+        }
+    }
+
+    [ ] Probar manejo de extensiones de archivo en busca de información sensible {
+        [ ] Buscar extensiones sensibles (https://filext.com) {
+            [ ] Extensiones de archivos de configuración
+            [ ] Extensiones de archivos comprimidos
+            [ ] .txt
+            [ ] Extensiones de documentos office
+            [ ] Extensiones comunes de archivos de respaldo
+        }
+    }
+
+    [ ] Revisar archivos de respaldo viejos y archivos no referenciados en busca de información sensible {
+        [ ] >> Recolección de información
+        [ ] Archivos no referenciados
+        [ ] Páginas no referenciadas
+        [ ] $ ffuf
+    }
+
+    [ ] Enumerar infraestructura e interfaces de administración de aplicaciones {
+        [ ] >> Recolección de información
+        [ ] Revisar documentación del servidor o tecnología usada
+        [ ] Interfaces conocidas de la infraestructura (eg. Wordpress)
+        [ ] $ ffuf
+    }
+
+    [ ] Métodos HTTP {
+        [ ] Descubrir métodos soportados {
+            [ ] OPTIONS
+            [ ] $ nmap --script http-methods --script-args http-methods.url-path='/xd' oli
+        }
+
+        [ ] Intentar evadir controles de acceso {
+            [ ] Probar otros métodos HTTP
+            [ ] Probar con métodos inventados (HOLA, FOOBAR, etc.)
+        }
+    }
+
+    [ ] Probar HTTP Strict Transport Security (HSTS) {
+        [ ] Validar la cabecera HSTS
+    }
+
+    [ ] Probar RIA Cross Domain Policy {
+        [ ] TODO
+    }
+
+    [ ] Probar permisos de archivos {
+        [ ] TODO
+    }
+
+    [ ] Probar Subdomain Takeover {
+        >> Recolección de información
+        [ ] Identificar todos los subdominios {
+            [ ] Fuerza bruta
+            [ ] OSINT
+        }
+
+        [ ] Identificar registros DNS muertos o que apunten a servicios  inactivos {
+            [ ] $ dig (NXDOMAIN, SERVFAIL, REFUSED, no servers could be reached.)
+        }
+
+        [ ] $ whois
+    }
+
+    [ ] Probar almacenamiento cloud {
+        [ ] TODO
+        [ ] $ aws
+    }
+}
+
+
+[ ] Pruebas de Manejo de Identidad {
+    [ ] Probar definición de roles {
+        [ ] Identificar roles
+        [ ] Validar permisos de cada rol
+        [ ] TODO - Intentar cambiar de rol
+    }
+
+    [ ] Probar proceso de registro de usuarios
+        [ ] Verificar que los requerimientos de identidad se alinien con los requerimientos de seguridad de la empresa
+        [ ] Validar el proceso de registro {
+            [ ] Puede ser falseada la información?
+        }
+
+    [ ] Probar proceso de aprovisionamiento de cuentas {
+        [ ] TODO
+    }
+
+    [ ] Probar enumeración de cuentas y usuarios adivinables
+
+    [ ] Probar políticas de nombre de usuario débiles o no aplicadas
+        # Objetivos:
+        # - Determinar si una estructura consistente de los nombres de usuario
+        #   hace que la aplicación sea vulnerable a enumeración de usuarios
+        # - Determinar si los mensajes de error permiten la enumeración de
+        #   usuarios
+}
+
+
+[ ] Pruebas de Autenticación {
+    [ ] TODO {
+
+    }
+}
+
+
+[ ] Pruebas de Autorización {
+    [ ] TODO
+}
+
+
+[ ] Pruebas de Manejo de Sesión {
+    [ ] TODO
+}
+
+
+[ ] Pruebas de Validación de Entrada de Datos {
+    [ ] TODO
+}
+
+
+[ ] Pruebas de Manejo de Errores {
+    [ ] TODO
+}
+
+
+[ ] Pruebas de Cifrado Débil {
+    [ ] TODO
+}
+
+
+[ ] Pruebas de Lógica de Negocio {
+    [ ] TODO
+}
+
+
+[ ] Pruebas del lado del Cliente {
+    [ ] TODO
+}
+
+
+[ ] Pruebas de API {
+    [ ] TODO Curso de APISec
+}
