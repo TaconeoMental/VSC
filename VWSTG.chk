@@ -1,6 +1,13 @@
 # VWSTG (Vim Web Security Testing Guide)
 # Basado en OWASP WSTG v4.2 + constantes adiciones personales
 
+
+[ ] TODOs Varios {
+    [ ] Modificar header Accept
+    [ ] Modificar header Origin
+}
+
+
 [ ] Recolección de Información {
     [ ] Descubrimiento en motores de búsqueda {
         [ ] https://google.com
@@ -13,14 +20,15 @@
         [ ] https://crt.sh
         [ ] https://en.fofa.info
         [ ] https://subdomainfinder.c99.nl
+        [ ] https://securitytrails.com
     }
 
     [ ] Identificación del servidor web {
         [ ] Banner grabbing
         [ ] Forzar mensajes de error {
-            # Rutas inexistentes bla bla bla TODO
-            [ ] TODO
+            [ ] HTTP malformado
         }
+
         [ ] $ nmap
         [ ] $ Wappalyzer
         [ ] $ whatweb
@@ -30,12 +38,16 @@
         [ ] robots.txt
         [ ] sitemap.xml
         [ ] META Tags
-        [ ] TODO?
     }
 
     [ ] Enumerar aplicaciones dentro del servidor web {
+        [ ] $ ffuf
         [ ] $ nmap
-        [ ] Banner grabbing: el retorno
+        [ ] Enumeración DNS {
+            [ ] $ host
+            [ ] $ dig
+            [ ] $ nslookup
+        }
     }
 
     [ ] Análisis del contenido y código de fuente del sitio web {
@@ -44,6 +56,7 @@
             [ ] Funcionalidad escondida {
                 [ ] Atributo "hidden"
                 [ ] "display: none"
+                [ ] disabled=""
             }
         }
 
@@ -51,9 +64,8 @@
             [ ] Comentarios
             [ ] Endpoints nuevos
             [ ] Exposición de llaves, contraseñas, etc.
-            [ ] Webpack? {
-                [ ] https://github.com/TaconeoMental/Felina # Análisis estático
-                [ ] Source maps # Manual por si acaso
+            [ ] Webpack {
+                [ ] Source maps # /static/js/main.chunk.js => /static/js/main.chunk.js.map
             }
         }
     }
@@ -73,12 +85,72 @@
 
     [ ] Identificación del Framework de la aplicación web {
         [ ] Headers HTTP
-        [ ] Cookies
+        [ ] Nombres de cookies
         [ ] Código fuente
         [ ] Mensajes de error
         [ ] Extensiones de archivos
         [ ] $ Wappalyzer
         [ ] $ whatweb
+    }
+
+    [ ] Mapear arquitectura de la aplicación {
+        # TODO: Sintaxis para selección múltiple
+        [ ] Componentes de aplicación {
+            [ ] Arquitectura {
+                [ ] Servidor web >> Identificación del servidor web
+                [ ] PaaS
+                [ ] Serverless
+                [ ] Microservicios
+            }
+
+            [ ] Almacenamiento estático {
+                [ ] Amazon S3
+                [ ] Azure Storage
+            }
+
+            [ ] Base de datos {
+                [ ] Microsoft SQL server
+                [ ] SQLite
+                [ ] MySQL
+                [ ] PostgreSQL
+                [ ] Oracle
+            }
+
+            [ ] Autenticación {
+                [ ] Configuración del servidor web
+                [ ] Autenticación básica HTTP
+                [ ] Cuentas de usuario en base de datos
+                [ ] Autenticación central (Active directory, LDAP)
+                [ ] SSO
+            }
+
+            [ ] APIs y servicios de terceros {
+                [ ] Contenido activo
+                [ ] Contenido pasivo
+                [ ] APIs externas
+                [ ] Botones de redes sociales
+                [ ] Pasarelas de pago
+            }
+        }
+
+        [ ] Componentes de red {
+            [ ] Proxy inverso
+            [ ] Balanceador de carga
+            [ ] CDN # https://en.wikipedia.org/wiki/Content_delivery_network#Notable_content_delivery_service_providers
+        }
+
+        [ ] Componentes de seguridad {
+            [ ] Firewall de red
+            [ ] IDS/IPS
+            [ ] WAF
+        }
+
+        [ ] Divulgación de IP origen {
+            [ ] Correos enviados por la aplicación
+            [ ] >> Recolección de Información
+            [ ] Escanear rangos de IP usados por la empresa
+            [ ] Explotar SSRF
+        }
     }
 }
 
@@ -174,11 +246,12 @@
         [ ] TODO - Intentar cambiar de rol
     }
 
-    [ ] Probar proceso de registro de usuarios
+    [ ] Probar proceso de registro de usuarios {
         [ ] Verificar que los requerimientos de identidad se alinien con los requerimientos de seguridad de la empresa
         [ ] Validar el proceso de registro {
             [ ] Puede ser falseada la información?
         }
+    }
 
     [ ] Probar proceso de aprovisionamiento de cuentas {
         [ ] TODO
